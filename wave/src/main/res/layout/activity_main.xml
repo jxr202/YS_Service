@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#fff"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <com.oudmon.wave.WaveformView
+            android:layout_weight="1"
+            android:id="@+id/waveform_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <!--<com.ruikye.graphics.view.GLWaveformView
+            android:id="@+id/gl_waveform_view"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>-->
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColor="#7F222222"
+        android:textSize="20sp"
+        android:text="Use Canvas"/>
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_gravity="bottom"
+        android:textColor="#7FEEEEEE"
+        android:textSize="20sp"
+        android:text="Use OpenGL"/>-->
+</FrameLayout>
+

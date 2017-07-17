@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fe7f41">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="快速体检"
+            android:textSize="16dp"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/icon_bf"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/icon_bf"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"/>
+        <TextView
+            android:id="@+id/bp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/icon_bf"
+            android:gravity="center_vertical"
+            android:text="血压：--/-- mmHg"
+            android:textColor="#000000"/>
+    </RelativeLayout>
+
+    <View
+        android:background="#e0e0e0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/icon_hf"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/icon_hf"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"/>
+        <TextView
+            android:id="@+id/hr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/icon_hf"
+            android:gravity="center_vertical"
+            android:text="心率：-- 次/分钟"
+            android:textColor="#000000"/>
+    </RelativeLayout>
+
+    <View
+        android:background="#e0e0e0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/icon_bo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/icon_bo"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"/>
+        <TextView
+            android:id="@+id/bo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/icon_bo"
+            android:gravity="center_vertical"
+            android:text="血氧：--%"
+            android:textColor="#000000"/>
+    </RelativeLayout>
+
+    <View
+        android:background="#e0e0e0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/icon_bp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/icon_bf"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"/>
+        <TextView
+            android:id="@+id/br"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/icon_bp"
+            android:gravity="center_vertical"
+            android:text="呼吸率：--"
+            android:textColor="#000000"/>
+    </RelativeLayout>
+
+    <View
+        android:background="#e0e0e0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.oudmon.service.CameraSurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.oudmon.service.CircularView
+            android:id="@+id/circular"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:onClick="start"/>
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="开始测量"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/playing"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="正在测量\n请勿移动手指"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/YS_Service.iml" filepath="$PROJECT_DIR$/YS_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/breath/breath.iml" filepath="$PROJECT_DIR$/breath/breath.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vitality/vitality.iml" filepath="$PROJECT_DIR$/vitality/vitality.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wave/wave.iml" filepath="$PROJECT_DIR$/wave/wave.iml" />
+    </modules>
+  </component>
+</project>
