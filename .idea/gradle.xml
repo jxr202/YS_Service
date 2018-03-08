@@ -8,8 +8,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/MsmListener" />
+            <option value="$PROJECT_DIR$/PhoneState" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/breath" />
+            <option value="$PROJECT_DIR$/ecg-hrv" />
+            <option value="$PROJECT_DIR$/ecg-wave" />
             <option value="$PROJECT_DIR$/vitality" />
             <option value="$PROJECT_DIR$/wave" />
           </set>

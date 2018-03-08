@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "com.oudmon.breath"
@@ -14,7 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            moduleName "Breath_V1_0_0"  //生成的so名字
+            moduleName "SuddenDeathSign_0_5_5" //生成的so名字
             abiFilters "armeabi", "armeabi-v7a", "x86", "x86_64"
         }
         sourceSets.main{

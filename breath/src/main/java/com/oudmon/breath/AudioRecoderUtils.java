@@ -19,19 +19,17 @@ import java.util.Calendar;
  * Created by jxr20 on 2017/6/16
  */
 
-public class AudioRecoderUtils {
+class AudioRecoderUtils {
 
     private static final String PATH = Environment.getExternalStorageDirectory() + "/杨树大健康/";
-
-    private static AudioRecoderUtils instance;
-
-    private static AudioRecord recorder;
 
     private static final int SOURCE = MediaRecorder.AudioSource.MIC;
     private static final int RATE = 44100;
     private static final int CHANNEL = AudioFormat.CHANNEL_IN_MONO;
     private static final int FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     private static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(RATE, CHANNEL, FORMAT);
+
+    private static AudioRecord mRecorder;
 
     //记录播放状态
     private static boolean isRecording = false;
@@ -54,7 +52,11 @@ public class AudioRecoderUtils {
     private static Handler mHandler;
 
 
-    private AudioRecoderUtils() {
+    /**
+     * 初始化数据
+     * @param handler 回调数据
+     */
+    static void prepare(Handler handler) {
         File file = new File(PATH);
         if (!file.exists()) {
             file.mkdirs();
@@ -71,29 +73,21 @@ public class AudioRecoderUtils {
             pcmFile.createNewFile();
             wavFile.createNewFile();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
-        recorder = new AudioRecord(SOURCE, RATE, CHANNEL, FORMAT, BUFFER_SIZE);
-    }
-
-    public static AudioRecoderUtils getInstance(Handler handler) {
-        if (instance == null) {
-            instance = new AudioRecoderUtils();
-        }
+        mRecorder = new AudioRecord(SOURCE, RATE, CHANNEL, FORMAT, BUFFER_SIZE);
         mHandler = handler;
-        return instance;
     }
 
-    public AudioRecoderUtils start() {
+    static void start() {
         isRecording = true;
-        recorder.startRecording();
-        return this;
+        mRecorder.startRecording();
     }
 
     /**
      * 记录数据
      */
-    public void recordData(){
+    static void recordData(){
         new Thread() {
             public void run() {
                 write();
@@ -101,7 +95,7 @@ public class AudioRecoderUtils {
         }.start();
     }
 
-    public void write() {
+    private static void write() {
         noteArray = new byte[BUFFER_SIZE];
         try {
             os = new BufferedOutputStream(new FileOutputStream(pcmFile));
@@ -109,7 +103,7 @@ public class AudioRecoderUtils {
             e.printStackTrace();
         }
         while (isRecording) {
-            int recordSize = recorder.read(noteArray, 0, BUFFER_SIZE);
+            int recordSize = mRecorder.read(noteArray, 0, BUFFER_SIZE);
             if (recordSize > 0) {
                 try {
                     int voice = 0;
@@ -132,17 +126,16 @@ public class AudioRecoderUtils {
         }
     }
 
-    public AudioRecoderUtils stop() {
+    static void stop() {
         isRecording = false;
-        recorder.stop();
-        return this;
+        mRecorder.stop();
     }
 
-    public void convertWaveFile() {
-        FileInputStream in = null;
-        FileOutputStream out = null;
-        long totalAudioLen = 0;
-        long totalDataLen = totalAudioLen + 36;
+    static void convertWaveFile() {
+        FileInputStream in;
+        FileOutputStream out;
+        long totalAudioLen;
+        long totalDataLen;
         int channels = 1;
         long byteRate = 16 * RATE * channels / 8;
         byte[] data = new byte[BUFFER_SIZE];
@@ -158,8 +151,6 @@ public class AudioRecoderUtils {
             }
             in.close();
             out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -214,7 +205,7 @@ public class AudioRecoderUtils {
         header[30] = (byte) ((byteRate >> 16) & 0xff);
         header[31] = (byte) ((byteRate >> 24) & 0xff);
         // 确定系统一次要处理多少个这样字节的数据，确定缓冲区，通道数*采样位数
-        header[32] = (byte) (1 * 16 / 8);
+        header[32] = (byte) (16 / 8);
         header[33] = 0;
         //每个样本的数据位数
         header[34] = 16;
@@ -230,10 +221,5 @@ public class AudioRecoderUtils {
         header[43] = (byte) ((totalAudioLen >> 24) & 0xff);
         out.write(header, 0, 44);
     }
-
-
-
-
-
 
 }

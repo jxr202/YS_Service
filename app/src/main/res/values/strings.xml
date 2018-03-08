@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">照片采集</string>
+    <string name="app_name">快速体检</string>
+    <string name="bp">血压：--/-- mmHg</string>
+    <string name="hr">心率：-- 次/分钟</string>
+    <string name="bo">血氧：--%</string>
+    <string name="br">呼吸率：--</string>
+    <string name="start">开始测量</string>
+    <string name="measuring">正在测量 请勿移动手指</string>
 </resources>

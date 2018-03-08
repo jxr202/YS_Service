@@ -3,13 +3,17 @@ package com.oudmon.vitality;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.oudmon.algo.breath.BreathAnalyzer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isRuning = false;
     private boolean isPermission = false;
     private VitalityView vitalityView;
+    private TextView breathRate;
     private Button button;
 
     @Override
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         vitalityView = (VitalityView) findViewById(R.id.vitality);
+        breathRate = (TextView) findViewById(R.id.breathRate);
         button = (Button) findViewById(R.id.start);
         button.setText("开始检测");
         button.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     isRuning = false;
                     ((Button) v).setText("开始检测");
                     vitalityView.stop();
+                    putBreathRate();
                 } else {
                     isRuning = true;
                     ((Button) v).setText("停止检测");
@@ -46,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestPermissions();
+    }
+
+
+    private void putBreathRate() {
+        int rate = BreathAnalyzer.pulmonaryFromWavFile(Environment.getExternalStorageDirectory() + "/杨树大健康/breath.wav");
+        breathRate.setText("呼吸频率结果: " + rate);
     }
 
 

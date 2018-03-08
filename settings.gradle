@@ -1,1 +1,1 @@
-include ':app', ':breath', ':vitality', ':wave'
+include ':app', ':breath', ':vitality', ':wave', ':ecg-wave', ':PhoneState', ':MsmListener', ':ecg-hrv'

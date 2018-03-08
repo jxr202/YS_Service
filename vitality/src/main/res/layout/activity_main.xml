@@ -9,6 +9,16 @@
         android:layout_height="200dp"
         android:layout_gravity="center" />
 
+    <TextView
+        android:id="@+id/breathRate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="60dp"
+        android:text="呼吸频率结果"
+        android:gravity="center"
+        android:textColor="#FE7F41"/>
+
     <Button
         android:id="@+id/start"
         android:layout_width="match_parent"

@@ -9,12 +9,18 @@ import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.oudmon.algo.breath.BreathAnalyzer;
+import com.oudmon.algo.ecg.SuddenDeathSign;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,45 +37,61 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     });
-    private AudioRecoderUtils utils = AudioRecoderUtils.getInstance(mHandler);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        wave = (WaveformView) findViewById(R.id.wave);
+        int[] array = new int[10];
+        for (int i = 0; i < array.length; i ++) {
+            array[i] = new Random().nextInt(250) - 50;
+        }
 
-        breathRate = (TextView) findViewById(R.id.breathRate);
+        SuddenDeathSign suddenDeathSign = SuddenDeathSign.extractSuddenDeathSignFrom(array, 250);
+        int[] indexs =  suddenDeathSign.rIndexs;
+        Log.i("jxr", "length: " + indexs.length);
+        for (int index: indexs) {
+            Log.i("jxr", "index: " + index);
+        }
 
-        button = (Button) findViewById(R.id.start);
-        button.setText("开始录音");
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isPermission) {
-                    Toast.makeText(MainActivity.this, "没有语音权限！", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (isRuning) {
-                    isRuning = false;
-                    button.setText("开始录音");
-                    utils.stop().convertWaveFile();
-                    putBreathRate();
-                } else {
-                    isRuning = true;
-                    button.setText("停止录音");
-                    utils.start().recordData();
-                }
-            }
-        });
-
-        requestPermissions();
+//        wave = (WaveformView) findViewById(R.id.wave);
+//
+//        breathRate = (TextView) findViewById(R.id.breathRate);
+//
+//        button = (Button) findViewById(R.id.start);
+//        button.setText("开始录音");
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!isPermission) {
+//                    Toast.makeText(MainActivity.this, "没有语音权限！", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (isRuning) {
+//                    isRuning = false;
+//                    button.setText("开始录音");
+//                    //AudioRecoderUtils.stop();
+//                    //AudioRecoderUtils.convertWaveFile();
+//                    putBreathRate();
+//                } else {
+//                    isRuning = true;
+//                    button.setText("停止录音");
+//                    //AudioRecoderUtils.prepare(mHandler);
+//                    //AudioRecoderUtils.start();
+//                    //AudioRecoderUtils.recordData();
+//                }
+//            }
+//        });
+//
+//        requestPermissions();
+//
+//        Log.i("MainActivity", "density: " + getResources().getDisplayMetrics().density + ", densityDpi: " + getResources().getDisplayMetrics().densityDpi);
     }
 
 
     private void putBreathRate() {
-        int rate = BreathAnalyzer.breathRateFromWavFile(Environment.getExternalStorageDirectory() + "/杨树大健康/breath.wav");
+        int rate = BreathAnalyzer.pulmonaryFromWavFile(Environment.getExternalStorageDirectory() + "/杨树大健康/breath.wav");
         breathRate.setText("呼吸频率结果: " + rate);
     }
 

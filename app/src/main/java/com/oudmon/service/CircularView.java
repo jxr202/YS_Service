@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 /**
- * Created by jxr20 on 2017/6/9
+ * Created by jxr202 on 2017/6/9
  */
 
 public class CircularView extends View {
@@ -28,34 +28,35 @@ public class CircularView extends View {
     private Paint mPaintWhite;
     private RectF mRect1;
     private RectF mRect2;
-    private int bold = 30;
     private boolean isPlaying = false;
     private ObjectAnimator circleAnimator;
+    private float mDensity;
 
     public CircularView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
-    private void init() {
-        mRect1 = new RectF(15, 15, 585, 585);
-        mRect2 = new RectF(23, 23, 577, 577);
+    private void init(Context context) {
+        mDensity = context.getResources().getDisplayMetrics().density;
+        mRect1 = new RectF(5 * mDensity, 5 * mDensity, 195 * mDensity, 195 * mDensity);
+        mRect2 = new RectF(8 * mDensity, 8 * mDensity, 192 * mDensity, 192 * mDensity);
         mPaint = new Paint() {{
             setAntiAlias(true);
             setStyle(Style.STROKE);
-            setStrokeWidth(bold);
+            setStrokeWidth(10 * mDensity);
             setColor(0xffFFBF42);
         }};
         mPaintGray1 = new Paint() {{
             setAntiAlias(true);
             setStyle(Style.STROKE);
-            setStrokeWidth(30);
+            setStrokeWidth(10 * mDensity);
             setColor(0xffD0D0D0);
         }};
         mPaintGray2 = new Paint() {{
             setAntiAlias(true);
             setStyle(Style.STROKE);
-            setStrokeWidth(45);
+            setStrokeWidth(15 * mDensity);
             setColor(0xffEEEEEE);
         }};
         mPaintWhite = new Paint() {{
@@ -67,7 +68,7 @@ public class CircularView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawCircle(300, 300, 300, mPaintWhite);
+        canvas.drawCircle(100 * mDensity, 100 * mDensity, 100 * mDensity, mPaintWhite);
         canvas.drawArc(mRect2, 0, 360, false, mPaintGray2);
         canvas.drawArc(mRect1, 0, 360, false, mPaintGray1);
         if (mRect1 != null) {
@@ -82,7 +83,7 @@ public class CircularView extends View {
         isPlaying = true;
 
         circleAnimator = ObjectAnimator.ofFloat(this, "degree", 0, 360);
-        circleAnimator.setDuration(10000);
+        circleAnimator.setDuration(60000);
         circleAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {

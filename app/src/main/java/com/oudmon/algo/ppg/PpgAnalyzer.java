@@ -1,12 +1,12 @@
 package com.oudmon.algo.ppg;
 
 public class PpgAnalyzer {
-	
-	
+
+
 	static {
 		System.loadLibrary("PpgAlgo");
 	}
-	
+
 	/*processing image frames from camera*/
 	public native PpgAnalyzer ppgImageAlgo(byte[] yuvFormatImageData, int imageWidth, int imageHeight);
 
@@ -63,9 +63,9 @@ public class PpgAnalyzer {
 	/** 舒张血压值 **/
 	private int dbp;	//diastole blood pressure
 
-	
+
 	public PpgAnalyzer(){
-		
+
 	}
 
 	public PpgAnalyzer(float hue, float red, float blue) {
@@ -81,10 +81,10 @@ public class PpgAnalyzer {
 		this.dbp = dbp;
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public float getHue() {
 		return hue;
 	}

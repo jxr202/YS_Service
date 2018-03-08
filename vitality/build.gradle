@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.oudmon.vitality"
@@ -12,6 +11,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            moduleName "Breath_V1_0_0"  //生成的so名字
+            abiFilters "armeabi", "armeabi-v7a", "x86", "x86_64"
+        }
+        sourceSets.main{
+            jniLibs.srcDir "src/main/libs"
+        }
 
     }
     buildTypes {

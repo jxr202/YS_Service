@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class MainActivity extends Activity implements PpgAnalyzerCallback {
 
     private static final String TAG = "MainActivity";
-    private CameraSurfaceView mSurfaceView;
+    private PhotoCollectView mSurfaceView;
     private TextView start;
     private TextView play;
     private TextView bp, hr, bo, br;
@@ -30,17 +30,25 @@ public class MainActivity extends Activity implements PpgAnalyzerCallback {
         setContentView(R.layout.activity_main);
         initView();
         EventBus.getDefault().register(this);
+        getPath();
     }
 
+    private void getPath() {
+        String a = getApplicationContext().getCacheDir().getAbsolutePath();
+        String b = getApplicationContext().getPackageResourcePath();
+        Log.i(TAG, "a: " + a + ", b: " + b);
+    }
+
+
     private void initView() {
-        mSurfaceView = (CameraSurfaceView) findViewById(R.id.surface_view);
+        mSurfaceView = findViewById(R.id.surface_view);
         mSurfaceView.setmPpgAnalyzerCallback(this);
-        bp = (TextView) findViewById(R.id.bp);
-        hr = (TextView) findViewById(R.id.hr);
-        bo = (TextView) findViewById(R.id.bo);
-        br = (TextView) findViewById(R.id.br);
-        start = (TextView) findViewById(R.id.start);
-        play = (TextView) findViewById(R.id.playing);
+        bp = findViewById(R.id.bp);
+        hr = findViewById(R.id.hr);
+        bo = findViewById(R.id.bo);
+        br = findViewById(R.id.br);
+        start = findViewById(R.id.start);
+        play = findViewById(R.id.playing);
         start.setText(utils.getValue());
     }
 
@@ -189,7 +197,6 @@ public class MainActivity extends Activity implements PpgAnalyzerCallback {
             }
         }
     }*/
-
 
 
 }
